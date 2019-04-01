@@ -3,8 +3,14 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Text.RegularExpressions;
+
+//				TO DO:
+// -	Sort ItemNamesLibrary from A to Z
+// -	Search results should utilize log(n), by always cutting the search list by half until a matching result is found
+//		Once found, iterate backwards until a non-matching result is found, and then iterate forward from the hit onwards until a non-matching is found
+//		Insert first list in a reverse order, and then the second list normally
+//		(Or if possible, just insert predecesors to start of list, and followers to end, then iterate normally
 
 namespace SRBG
 {
@@ -41,6 +47,7 @@ namespace SRBG
 			if (Unlocks.unlockCount > 0)
 			{
 				Unlocks.WriteToFile();
+				ItemNamesLibrary.WriteToFile();
 				Console.WriteLine(Strings.SUCCESS_UNLOCKS);
 			}
 			else
@@ -59,10 +66,15 @@ namespace SRBG
 
 			Console.WriteLine();
 			Console.WriteLine(string.Format(Strings.STATS_ELAPSED_TIME, stopwatch.Elapsed));
+			Console.WriteLine(Strings.LINE_BREAK);
 			Console.WriteLine(string.Format(Strings.STATS_UNLOCKS_SCANNED, Unlocks.scannedFiles));
 			Console.WriteLine(string.Format(Strings.STATS_TOTAL_UNLOCKS, Unlocks.unlockCount));
+			Console.WriteLine(string.Format(Strings.STATS_TOTAL_NAMES_INTERNAL, ItemNamesLibrary.internalNamesIndexed));
+			Console.WriteLine(string.Format(Strings.STATS_TOTAL_NAMES_DISPLAY, ItemNamesLibrary.displayNamesIndexed));
+			Console.WriteLine(Strings.LINE_BREAK);
 			Console.WriteLine(string.Format(Strings.STATS_RECIPES_SCANNED, Recipes.scannedFiles));
 			Console.WriteLine(string.Format(Strings.STATS_TOTAL_RECIPES, Recipes.totalRecipes));
+			Console.WriteLine(string.Format(Strings.STATS_TOTAL_GROUPS, Groups.totalGroups));
 			Console.WriteLine();
 
 			Console.WriteLine(Strings.EXIT);

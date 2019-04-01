@@ -8,7 +8,8 @@ namespace SRBG
 	static class Groups
 	{
 		static Dictionary<string, List<string>> _groups = new Dictionary<string, List<string>>(0);
-		
+		public static int totalGroups = 0;
+
 		public static void Add(string[] tags, string item)
 		{
 			if (tags == null) return;
@@ -19,7 +20,10 @@ namespace SRBG
 		static void Add(string tag, string item)
 		{
 			if (!_groups.ContainsKey(tag))
+			{
+				totalGroups++;
 				_groups.Add(tag, new List<string>(0));
+			}
 
 			if (!_groups[tag].Contains(item))
 				_groups[tag].Add(item);

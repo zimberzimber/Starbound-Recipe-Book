@@ -17,9 +17,13 @@
 		public const string ITEM_NAME_LIBRARY_FILE_NAME = "ItemNameLibrary.patch";
 		public const string OUTPUT_DIRECTORY_NAME = @"\output\";
 
+		// Used to remove comments from the files as JSON de/serializers do not inherently support commenting
 		// Single line comment regex:		[/]+[/](.*?)[\n]
 		// Multi-line comment regex:		[/]+[*](.*?)[*]+[/]
 		public const string UNCOMMENT_REGEX_PATTERN = @"([/]+[/](.*?)[\n])|([/]+[*](.*?)[*]+[/])";
+
+		// Used to remove formatting from item names for accurate search results
+		public const string UNFORMAT_REGEX_PATTERN = @"[\^](.*?)[;]";
 
 		public const string INTRO =
 @"Welcome to SRBG (Starbound Recipe Book Generator)
@@ -44,15 +48,21 @@ Please restart it in admin mode.";
 		public const string SUCCESS_RECIPE = "RecipeBook.txt and GroupDictionary.txt successfuly generated inside the 'output' folder";
 		public const string FAILED_RECIPES = "No recipe files found. RecipeBook.txt and GroupDictionary.txt not generated.";
 
-		public const string READING_UNLOCKS = "Reading file for UNLOCKS...";
+		public const string READING_UNLOCKS = "Reading file for UNLOCKS + ITEM NAMES...";
 		public const string SUCCESS_UNLOCKS = "UnlocksDictionary.txt successfuly generated inside the 'output' folder";
 		public const string FAILED_UNLOCKS = "No items with unlocks on pickup found. File not generated.";
 
-		public const string STATS_ELAPSED_TIME = "Elapsed time:\t\t\t{0}";
-		public const string STATS_UNLOCKS_SCANNED = "Files scanned for unlocks:\t{0}";
-		public const string STATS_TOTAL_UNLOCKS = "Total unlocks:\t\t\t{0}";
-		public const string STATS_RECIPES_SCANNED = "Files scanned for recipes:\t{0}";
-		public const string STATS_TOTAL_RECIPES = "Total recipes:\t\t\t{0}";
+		public const string STATS_ELAPSED_TIME = "Elapsed time:\t{0}";
+		public const string LINE_BREAK = "____________________________________________________________";
+
+		public const string STATS_UNLOCKS_SCANNED = "Files scanned for unlocks and item names:\t{0}";
+		public const string STATS_TOTAL_UNLOCKS = "Total unlocks:\t\t{0}";
+		public const string STATS_TOTAL_NAMES_INTERNAL = "Total internal names:\t{0}";
+		public const string STATS_TOTAL_NAMES_DISPLAY = "Total display names:\t{0}";
+
+		public const string STATS_RECIPES_SCANNED = "Files scanned for recipes and groups:\t\t{0}";
+		public const string STATS_TOTAL_RECIPES = "Total recipes:\t\t{0}";
+		public const string STATS_TOTAL_GROUPS = "Total groups:\t\t{0}";
 
 		public const string EXIT = "Press any key to quit...";
 	}

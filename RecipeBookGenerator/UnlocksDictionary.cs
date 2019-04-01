@@ -15,6 +15,8 @@ namespace SRBG
 		{
 			scannedFiles++;
 			Add(item.learnBlueprintsOnPickup, item.itemName);
+			ItemNamesLibrary.AddNameEntry(item.shortdescription, item.itemName);
+			item.shortdescription = null; // Obsolete outside of the names library
 		}
 
 		static void Add(string[] items, string unlockedBy)
@@ -49,6 +51,7 @@ namespace SRBG
 	public class Item
 	{
 		public string itemName;
+		public string shortdescription;
 		public string[] learnBlueprintsOnPickup;
 	}
 }
