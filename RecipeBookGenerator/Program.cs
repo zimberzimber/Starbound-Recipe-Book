@@ -21,6 +21,7 @@ namespace SRBG
 		static void Main(string[] args)
 		{
 			JSON.SetDefaultOptions(Options.ExcludeNulls);
+			Console.Title = Strings.TITLE;
 
 			Console.WriteLine(Strings.INTRO);
 			Console.ReadKey();
@@ -44,33 +45,41 @@ namespace SRBG
 
 			GenerateFiles(AppDomain.CurrentDomain.BaseDirectory + @"..\");
 
-			if (Unlocks.unlockCount > 0)
-			{
-				Unlocks.WriteToFile();
-				ItemNamesLibrary.WriteToFile();
-				Console.WriteLine(Strings.SUCCESS_UNLOCKS);
-			}
-			else
-				Console.WriteLine(Strings.FAILED_UNLOCKS);
+			Console.WriteLine();
 
 			if (Recipes.totalRecipes > 0)
 			{
 				Recipes.WriteToFile();
 				Groups.WriteToFile();
-				Console.WriteLine(Strings.SUCCESS_RECIPE);
+				Console.WriteLine(Strings.SUCCESS_RECIPES);
 			}
 			else
 				Console.WriteLine(Strings.FAILED_RECIPES);
 
-			stopwatch.Stop();
+			if (Unlocks.unlockCount > 0)
+			{
+				Unlocks.WriteToFile();
+				Console.WriteLine(Strings.SUCCESS_UNLOCKS);
+			}
+			else
+				Console.WriteLine(Strings.FAILED_UNLOCKS);
+			
+			if (ItemNameLibrary.internalNamesIndexed > 0)
+			{
+				ItemNameLibrary.WriteToFile();
+				Console.WriteLine(Strings.SUCCESS_NAMES);
+			}
+			else
+				Console.WriteLine(Strings.FAILED_NAMES);
 
-			Console.WriteLine();
+
+			Console.WriteLine(Strings.LINE_BREAK);
 			Console.WriteLine(string.Format(Strings.STATS_ELAPSED_TIME, stopwatch.Elapsed));
 			Console.WriteLine(Strings.LINE_BREAK);
 			Console.WriteLine(string.Format(Strings.STATS_UNLOCKS_SCANNED, Unlocks.scannedFiles));
 			Console.WriteLine(string.Format(Strings.STATS_TOTAL_UNLOCKS, Unlocks.unlockCount));
-			Console.WriteLine(string.Format(Strings.STATS_TOTAL_NAMES_INTERNAL, ItemNamesLibrary.internalNamesIndexed));
-			Console.WriteLine(string.Format(Strings.STATS_TOTAL_NAMES_DISPLAY, ItemNamesLibrary.displayNamesIndexed));
+			Console.WriteLine(string.Format(Strings.STATS_TOTAL_NAMES_INTERNAL, ItemNameLibrary.internalNamesIndexed));
+			Console.WriteLine(string.Format(Strings.STATS_TOTAL_NAMES_DISPLAY, ItemNameLibrary.displayNamesIndexed));
 			Console.WriteLine(Strings.LINE_BREAK);
 			Console.WriteLine(string.Format(Strings.STATS_RECIPES_SCANNED, Recipes.scannedFiles));
 			Console.WriteLine(string.Format(Strings.STATS_TOTAL_RECIPES, Recipes.totalRecipes));

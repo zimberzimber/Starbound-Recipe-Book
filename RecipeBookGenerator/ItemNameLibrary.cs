@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace SRBG
 {
-	static class ItemNamesLibrary
+	static class ItemNameLibrary
 	{
 		static Dictionary<string, List<string>> _nameLibrary = new Dictionary<string, List<string>>(0);
 		public static int internalNamesIndexed = 0;
