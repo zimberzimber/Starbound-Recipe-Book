@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 //				TO DO:
-// -	Sort ItemNamesLibrary from A to Z
+// -	Find out why some unlocks are generating with a null
 // -	Search results should utilize log(n), by always cutting the search list by half until a matching result is found
 //		Once found, iterate backwards until a non-matching result is found, and then iterate forward from the hit onwards until a non-matching is found
 //		Insert first list in a reverse order, and then the second list normally
@@ -88,6 +88,7 @@ namespace SRBG
 
 			Console.WriteLine(Strings.EXIT);
 			Console.ReadKey();
+			Process.Start(AppDomain.CurrentDomain.BaseDirectory + Strings.OUTPUT_DIRECTORY_NAME);
 		}
 
 		static void GenerateFiles(string currentDir)

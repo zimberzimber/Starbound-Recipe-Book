@@ -18,9 +18,14 @@ namespace SRBG
 			if (!_recipes.ContainsKey(rec.output.item))
 				_recipes.Add(rec.output.item, new List<Recipe>(0));
 			_recipes[rec.output.item].Add(rec);
-
+			
 			totalRecipes++;
 			Groups.Add(rec.groups, rec.output.item);
+
+			// Since the recipe is stored under the output items name, and there's only one relevant value left
+			// I'm saving it into a separate value instead of keeping it inside an object
+			rec.outputCount = rec.output.count;
+			rec.output = null;
 		}
 
 		public static void WriteToFile()
@@ -40,6 +45,7 @@ namespace SRBG
 		public InputOutput[] input;
 		public InputOutput output;
 		public string[] groups;
+		public int outputCount;
 
 		// See description for the method with the same name inside the "InputOutput" class
 		public void FixBullshit()
