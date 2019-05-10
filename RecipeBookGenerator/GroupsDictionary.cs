@@ -32,12 +32,12 @@ namespace SRBG
 		public static void WriteToFile()
 		{
 			string str = JSON.Serialize(_groups);
-			using (StreamWriter file = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + Strings.OUTPUT_DIRECTORY_NAME + Strings.GROUP_DICTIONARY_FILE_NAME))
-			{
-				file.Write(Strings.PATCH_FILE_OPENING_LINE);
-				file.Write(str);
-				file.Write(Strings.PATCH_FILE_CLOSING_LINE);
-			}
+            using (StreamWriter file = new StreamWriter(string.Format("{0}{1}\\{2}\\{3}", AppDomain.CurrentDomain.BaseDirectory, Strings.OUTPUT_DIRECTORY_NAME, Strings.modName, Strings.GROUP_DICTIONARY_FILE_NAME)))
+            {
+                file.Write(Strings.PATCH_FILE_OPENING_LINE);
+                file.Write(str);
+                file.Write(Strings.PATCH_FILE_CLOSING_LINE);
+            }
 		}
 	}
 }

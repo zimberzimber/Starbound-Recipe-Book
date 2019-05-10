@@ -11,24 +11,34 @@ using System.Text.RegularExpressions;
 //		Once found, iterate backwards until a non-matching result is found, and then iterate forward from the hit onwards until a non-matching is found
 //		Insert first list in a reverse order, and then the second list normally
 //		(Or if possible, just insert predecesors to start of list, and followers to end, then iterate normally
-
+// D:\Games\steamapps\common\Starbound\mods\_FrackinUniverse-master
 namespace SRBG
 {
 	class Program
 	{
-		public static string modName = "asd";
+		static string path;
 
-		static void Main(string[] args)
+		static void Main()
 		{
 			JSON.SetDefaultOptions(Options.ExcludeNulls);
 			Console.Title = Strings.TITLE;
 
 			Console.WriteLine(Strings.INTRO);
-			Console.ReadKey();
-			Console.Clear();
+            path = Console.ReadLine();
+            Console.Clear();
 
+            while (!Directory.Exists(path))
+            {
+                Console.WriteLine(Strings.INTRO);
+                Console.WriteLine();
+                Console.WriteLine(string.Format(Strings.DIRECTORY_INVALID, path));
+                path = Console.ReadLine();
+                Console.Clear();
+            }
 
-			try
+            Strings.modName = Path.GetFileName(path);
+
+            try
 			{ Directory.GetAccessControl(AppDomain.CurrentDomain.BaseDirectory); }
 			catch (UnauthorizedAccessException)
 			{
@@ -40,13 +50,15 @@ namespace SRBG
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
 
-			if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + Strings.OUTPUT_DIRECTORY_NAME))
-				Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + Strings.OUTPUT_DIRECTORY_NAME);
+            if (!Directory.Exists($"{AppDomain.CurrentDomain.BaseDirectory}{Strings.OUTPUT_DIRECTORY_NAME}"))
+                Directory.CreateDirectory($"{AppDomain.CurrentDomain.BaseDirectory}{Strings.OUTPUT_DIRECTORY_NAME}");
 
-			GenerateFiles(AppDomain.CurrentDomain.BaseDirectory + @"..\");
+            if (!Directory.Exists($"{AppDomain.CurrentDomain.BaseDirectory}{Strings.OUTPUT_DIRECTORY_NAME}\\{Strings.modName}"))
+                Directory.CreateDirectory($"{AppDomain.CurrentDomain.BaseDirectory}{Strings.OUTPUT_DIRECTORY_NAME}\\{Strings.modName}");
+
+            GenerateFiles(path);
 
 			Console.WriteLine();
-
 			if (Recipes.totalRecipes > 0)
 			{
 				Recipes.WriteToFile();
@@ -88,7 +100,7 @@ namespace SRBG
 
 			Console.WriteLine(Strings.EXIT);
 			Console.ReadKey();
-			Process.Start(AppDomain.CurrentDomain.BaseDirectory + Strings.OUTPUT_DIRECTORY_NAME);
+			Process.Start(string.Format("{0}{1}\\{2}", AppDomain.CurrentDomain.BaseDirectory, Strings.OUTPUT_DIRECTORY_NAME, Strings.modName));
 		}
 
 		static void GenerateFiles(string currentDir)

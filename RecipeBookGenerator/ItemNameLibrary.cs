@@ -33,7 +33,7 @@ namespace SRBG
 		{
 			//_nameLibrary = _nameLibrary.OrderBy(n => n.Key).ToDictionary(n => n.Key, n => n.Value);
 			string str = JSON.Serialize(_nameLibrary);
-			using (StreamWriter file = new StreamWriter(string.Format("{0}{1}{2}", AppDomain.CurrentDomain.BaseDirectory, Strings.OUTPUT_DIRECTORY_NAME, Strings.ITEM_NAME_LIBRARY_FILE_NAME)))
+			using (StreamWriter file = new StreamWriter(string.Format("{0}{1}\\{2}\\{3}", AppDomain.CurrentDomain.BaseDirectory, Strings.OUTPUT_DIRECTORY_NAME, Strings.modName, Strings.ITEM_NAME_LIBRARY_FILE_NAME)))
 			{
 				file.Write(Strings.PATCH_FILE_OPENING_LINE);
 				file.Write(str);

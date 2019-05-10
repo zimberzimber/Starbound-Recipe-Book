@@ -2,6 +2,8 @@
 {
 	static class Strings
 	{
+        public static string modName;
+
 		public const string RECIPE_FILE_EXTENSION = ".recipe";
 		public const string PATCH_FILE_EXTENSION = ".patch";
 		public static readonly string[] ITEM_FILE_EXTENSIONS = new string[] {
@@ -48,7 +50,10 @@ Should you have any questions, feedback, or bugs to report, you can reach me at.
 - Starbound Discord
 - Steam / GitHub: zimberzimber
 
-Press any key to continue...";
+Please insert a directory to generate recipes from...";
+
+        public const string DIRECTORY_INVALID =
+@"Invalid directory '{0}'";
 
 		public const string NO_ACCESS =
 @"Program does not have write access.
