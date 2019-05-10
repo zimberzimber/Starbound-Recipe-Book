@@ -11,12 +11,17 @@ namespace SRBG
         public static int unlockCount = 0;
         public static int scannedFiles = 0;
 
+        static object _threadLockAnchor = new object();
+
         public static void Add(Item item)
         {
-            scannedFiles++;
-            Add(item.learnBlueprintsOnPickup, item.itemName);
-            ItemNameLibrary.AddNameEntry(item.shortdescription, item.itemName);
-            item.shortdescription = null; // Obsolete outside of the names library
+            lock (_threadLockAnchor)
+            {
+                scannedFiles++;
+                Add(item.learnBlueprintsOnPickup, item.itemName);
+                ItemNameLibrary.AddNameEntry(item.shortdescription, item.itemName);
+                item.shortdescription = null; // Obsolete outside of the names library
+            }
         }
 
         static void Add(string[] items, string unlockedBy)

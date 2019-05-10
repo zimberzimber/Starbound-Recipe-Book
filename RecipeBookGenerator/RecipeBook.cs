@@ -11,21 +11,26 @@ namespace SRBG
 		public static int totalRecipes = 0;
 		public static int scannedFiles = 0;
 
-		public static void Add(Recipe rec)
+        static object _threadLockAnchor = new object();
+
+        public static void Add(Recipe rec)
 		{
-			scannedFiles++;
+            lock (_threadLockAnchor)
+            {
+                scannedFiles++;
 
-			if (!_recipes.ContainsKey(rec.output.item))
-				_recipes.Add(rec.output.item, new List<Recipe>(0));
-			_recipes[rec.output.item].Add(rec);
-			
-			totalRecipes++;
-			Groups.Add(rec.groups, rec.output.item);
+                if (!_recipes.ContainsKey(rec.output.item))
+                    _recipes.Add(rec.output.item, new List<Recipe>(0));
+                _recipes[rec.output.item].Add(rec);
 
-			// Since the recipe is stored under the output items name, and there's only one relevant value left
-			// I'm saving it into a separate value instead of keeping it inside an object
-			rec.outputCount = rec.output.count;
-			rec.output = null;
+                totalRecipes++;
+                Groups.Add(rec.groups, rec.output.item);
+
+                // Since the recipe is stored under the output items name, and there's only one relevant value left
+                // I'm saving it into a separate value instead of keeping it inside an object
+                rec.outputCount = rec.output.count;
+                rec.output = null;
+            }
 		}
 
 		public static void WriteToFile()

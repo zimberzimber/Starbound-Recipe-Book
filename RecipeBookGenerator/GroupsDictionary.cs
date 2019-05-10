@@ -10,11 +10,16 @@ namespace SRBG
 		static Dictionary<string, List<string>> _groups = new Dictionary<string, List<string>>(0);
 		public static int totalGroups = 0;
 
-		public static void Add(string[] tags, string item)
-		{
-			if (tags == null) return;
-			for (int i = 0; i < tags.Length; i++)
-			{ Add(tags[i], item); }
+        static object _threadLockAnchor = new object();
+
+        public static void Add(string[] tags, string item)
+        {
+            lock (_threadLockAnchor)
+            {
+                if (tags == null) return;
+                for (int i = 0; i < tags.Length; i++)
+                { Add(tags[i], item); }
+            }
 		}
 
 		static void Add(string tag, string item)

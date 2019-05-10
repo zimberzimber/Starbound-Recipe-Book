@@ -13,20 +13,25 @@ namespace SRBG
 		public static int internalNamesIndexed = 0;
 		public static int displayNamesIndexed = 0;
 
+        static object _threadLockAnchor = new object();
+
 		public static void AddNameEntry(string displayedName, string internalName)
 		{
-			if (displayedName == null) return;
+            lock (_threadLockAnchor)
+            {
+                if (displayedName == null) return;
 
-			displayedName = Regex.Replace(displayedName, Strings.UNFORMAT_REGEX_PATTERN, "");
-			displayedName = displayedName.ToLower();
+                displayedName = Regex.Replace(displayedName, Strings.UNFORMAT_REGEX_PATTERN, "");
+                displayedName = displayedName.ToLower();
 
-			if (!_nameLibrary.ContainsKey(displayedName))
-			{
-				_nameLibrary.Add(displayedName, new List<string>(0));
-				displayNamesIndexed++;
-			}
-			_nameLibrary[displayedName].Add(internalName);
-			internalNamesIndexed++;
+                if (!_nameLibrary.ContainsKey(displayedName))
+                {
+                    _nameLibrary.Add(displayedName, new List<string>(0));
+                    displayNamesIndexed++;
+                }
+                _nameLibrary[displayedName].Add(internalName);
+                internalNamesIndexed++;
+            }
 		}
 
 		public static void WriteToFile()

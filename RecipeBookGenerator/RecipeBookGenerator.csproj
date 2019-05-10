@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="GroupsDictionary.cs" />
     <Compile Include="ItemNameLibrary.cs" />
+    <Compile Include="Program-MultiThreading.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecipeBook.cs" />
