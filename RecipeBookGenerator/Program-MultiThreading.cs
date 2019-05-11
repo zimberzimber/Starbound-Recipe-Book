@@ -32,7 +32,6 @@ namespace SRBG
 
                         string str = RemoveComments(File.ReadAllText(file));
                         Recipe toAdd = JSON.Deserialize<Recipe>(str);
-                        toAdd.FixBullshit();
                         Recipes.Add(toAdd);
                     }
                     else if (Strings.ITEM_FILE_EXTENSIONS.Contains(ext))

@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 //				TO DO:
-// -	Find out why some unlocks are generating with a null
 // -	Search results should utilize log(n), by always cutting the search list by half until a matching result is found
 //		Once found, iterate backwards until a non-matching result is found, and then iterate forward from the hit onwards until a non-matching is found
 //		Insert first list in a reverse order, and then the second list normally
@@ -133,7 +132,6 @@ namespace SRBG
 
                     string str = RemoveComments(File.ReadAllText(files[i]));
                     Recipe toAdd = JSON.Deserialize<Recipe>(str);
-                    toAdd.FixBullshit();
                     Recipes.Add(toAdd);
                 }
                 else if (Strings.ITEM_FILE_EXTENSIONS.Contains(ext))

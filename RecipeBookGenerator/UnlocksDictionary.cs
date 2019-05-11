@@ -58,5 +58,9 @@ namespace SRBG
         public string itemName;
         public string shortdescription;
         public string[] learnBlueprintsOnPickup;
+
+        // Objects can also have unlocks, so the deserializer is redirected here
+        // Irrelevant for the serializer, as the output file is going to be read by 'itemName' regardless
+        public string objectName { set { itemName = value; } }
     }
 }
